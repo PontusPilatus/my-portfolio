@@ -27,9 +27,6 @@ const Projects = () => {
   // State to track which project is being hovered
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
-  // Filter to featured projects by default, can be overridden by tag filters
-  const [showFeaturedOnly, setShowFeaturedOnly] = useState(true);
-
   const projects: Project[] = [
     {
       id: 1,
@@ -64,55 +61,24 @@ const Projects = () => {
       githubLink: "https://github.com/PontusPilatus/my-portfolio",
       liveLink: "/",
       featured: true,
-    },
-    {
-      id: 5,
-      key: "ecommerce",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80",
-      tags: ["Vue.js", "Express", "MongoDB", "Chart.js"],
-      githubLink: "https://github.com/yourusername/ecommerce-dashboard", // Replace with your actual repo
-      readmeLink: "https://github.com/yourusername/ecommerce-dashboard#readme", // Replace with your actual readme
-      featured: false,
-    },
-    {
-      id: 6,
-      key: "weatherApp",
-      image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&q=80",
-      tags: ["JavaScript", "Weather API", "CSS"],
-      githubLink: "https://github.com/yourusername/weather-app", // Replace with your actual repo
-      liveLink: "https://yourusername.github.io/weather-app", // Replace with your actual demo
-      featured: false,
-    },
-    {
-      id: 7,
-      key: "taskCli",
-      image: "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&q=80",
-      tags: ["Python", "CLI", "Productivity"],
-      githubLink: "https://github.com/yourusername/task-cli", // Replace with your actual repo
-      featured: false,
-    },
+    }
   ];
 
-  // Filter projects based on featured status
-  const projectsByFeatured = projects.filter(project =>
-    showFeaturedOnly ? project.featured : true
-  );
-
-  // Get all unique tags from the currently displayed projects
+  // Get all unique tags from all projects
   const visibleTags = Array.from(
-    new Set(projectsByFeatured.flatMap(project => project.tags))
+    new Set(projects.flatMap(project => project.tags))
   ).sort();
 
-  // Then filter projects by the active tag if one is selected
-  const filteredProjects = projectsByFeatured
+  // Filter projects by the active tag if one is selected
+  const filteredProjects = projects
     .filter(project => activeFilter ? project.tags.includes(activeFilter) : true);
 
-  // When toggling featured/all, reset the active filter if it's no longer available
+  // When tag filter changes, no need to reset based on featured status
   useEffect(() => {
     if (activeFilter && !visibleTags.includes(activeFilter)) {
       setActiveFilter(null);
     }
-  }, [showFeaturedOnly, activeFilter, visibleTags]);
+  }, [activeFilter, visibleTags]);
 
   return (
     <section
@@ -129,30 +95,6 @@ const Projects = () => {
             <p className="text-foreground/70 max-w-2xl mx-auto">
               {t.projects.description}
             </p>
-          </div>
-
-          {/* Filter toggles */}
-          <div className="flex flex-wrap items-center justify-between mb-8">
-            <div className="mb-4 lg:mb-0">
-              <button
-                onClick={() => setShowFeaturedOnly(true)}
-                className={`px-3 py-1.5 mr-2 rounded-full text-sm transition-colors ${showFeaturedOnly
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/50 hover:bg-secondary/70"
-                  }`}
-              >
-                {t.projects.featuredOnly}
-              </button>
-              <button
-                onClick={() => setShowFeaturedOnly(false)}
-                className={`px-3 py-1.5 rounded-full text-sm transition-colors ${!showFeaturedOnly
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/50 hover:bg-secondary/70"
-                  }`}
-              >
-                {t.projects.allProjects}
-              </button>
-            </div>
           </div>
 
           {/* Tag filters - only show tags from visible projects */}
