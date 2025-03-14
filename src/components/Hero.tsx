@@ -32,7 +32,7 @@ const Hero = () => {
       <div className="container max-w-4xl mx-auto relative z-10 flex flex-col items-center">
         <h1
           ref={headingRef}
-          className="text-4xl md:text-6xl font-bold mb-6 opacity-0 transform translate-y-8 transition-all duration-700 pt-8 md:pt-0"
+          className="text-4xl md:text-6xl font-bold mb-6 opacity-0 transform translate-y-8 transition-all duration-700 pt-20 md:pt-0"
         >
           {t.hero.titleStart} <span className="text-primary relative inline-block">
             {t.hero.highlight}
