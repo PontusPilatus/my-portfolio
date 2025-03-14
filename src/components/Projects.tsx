@@ -158,9 +158,10 @@ const Projects = () => {
                   />
                 </div>
 
-                <div className="p-4 sm:p-6 flex-grow overflow-auto" style={{ minHeight: "160px", maxHeight: "235px" }}>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">{t.projects[project.key]?.title}</h3>
-                  <p className="text-foreground/70 text-xs sm:text-sm">{t.projects[project.key]?.description}</p>
+                {/* Content - fixed height */}
+                <div className="p-6 h-[235px] overflow-hidden">
+                  <h3 className="text-xl font-bold mb-2">{t.projects[project.key]?.title}</h3>
+                  <p className="text-foreground/70 text-sm">{t.projects[project.key]?.description}</p>
                 </div>
 
                 <div className="px-4 sm:px-6 pb-4 sm:pb-6 mt-auto">
