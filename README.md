@@ -1,4 +1,4 @@
-# Personal Portfolio
+# Personal Portfolio 
 
 A responsive personal portfolio website showcasing my projects and skills, built with React, TypeScript, and Tailwind CSS.
 
