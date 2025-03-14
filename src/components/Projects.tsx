@@ -126,7 +126,7 @@ const Projects = () => {
           )}
 
           {/* Projects grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
             {filteredProjects.map((project, index) => (
               <TiltCard
                 key={project.id}
@@ -137,15 +137,17 @@ const Projects = () => {
                 style={{
                   transitionDelay: `${150 * index}ms`,
                   transitionDuration: "700ms",
-                  height: "550px"
+                  height: "auto",
+                  maxHeight: "550px",
+                  display: "flex",
+                  flexDirection: "column"
                 }}
-                tiltMaxAngle={5}
+                tiltMaxAngle={3}
                 glareOpacity={0.1}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
-                {/* Fixed structure with 3 sections: image (48px), content, footer (100px) */}
-                <div className="h-48 overflow-hidden">
+                <div className="h-40 sm:h-48 overflow-hidden">
                   <img
                     src={project.image}
                     alt={t.projects[project.key]?.title || `Project ${project.id}`}
@@ -156,20 +158,17 @@ const Projects = () => {
                   />
                 </div>
 
-                {/* Content - fixed height */}
-                <div className="p-6 h-[235px] overflow-hidden">
-                  <h3 className="text-xl font-bold mb-2">{t.projects[project.key]?.title}</h3>
-                  <p className="text-foreground/70 text-sm">{t.projects[project.key]?.description}</p>
+                <div className="p-4 sm:p-6 flex-grow overflow-auto" style={{ minHeight: "160px", maxHeight: "235px" }}>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">{t.projects[project.key]?.title}</h3>
+                  <p className="text-foreground/70 text-xs sm:text-sm">{t.projects[project.key]?.description}</p>
                 </div>
 
-                {/* Footer - fixed height, always at bottom */}
-                <div className="px-6 pb-6 h-[100px]">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-3">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-6 mt-auto">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3">
                     {project.tags.map(tag => (
                       <span
                         key={tag}
-                        className="tech-pill cursor-pointer transition-colors hover:bg-primary/20"
+                        className="tech-pill text-xs cursor-pointer transition-colors hover:bg-primary/20 py-1 px-2 sm:px-2.5"
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveFilter(tag);
@@ -180,8 +179,7 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  {/* Buttons */}
-                  <div className="flex flex-wrap gap-3 justify-between items-center pt-3 border-t border-border">
+                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-between items-center pt-3 border-t border-border">
                     {project.githubLink && (
                       <a
                         href={project.githubLink}
@@ -189,7 +187,7 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center text-foreground/70 hover:text-primary transition-colors"
                       >
-                        <Github size={16} className="mr-1" />
+                        <Github size={14} className="mr-1" />
                         <span className="text-xs">{t.projects.sourceCode}</span>
                       </a>
                     )}
@@ -201,7 +199,7 @@ const Projects = () => {
                         className="flex items-center text-foreground/70 hover:text-primary transition-colors"
                       >
                         <span className="text-xs">{t.projects.liveProject}</span>
-                        <ExternalLink size={14} className="ml-1" />
+                        <ExternalLink size={12} className="ml-1" />
                       </a>
                     )}
                     {project.readmeLink && (
@@ -211,7 +209,7 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center text-foreground/70 hover:text-primary transition-colors"
                       >
-                        <BookOpen size={14} className="mr-1" />
+                        <BookOpen size={12} className="mr-1" />
                         <span className="text-xs">{t.projects.readMore}</span>
                       </a>
                     )}
