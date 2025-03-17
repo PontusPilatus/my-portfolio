@@ -68,6 +68,10 @@ export const translations = {
         title: "Portfolio Website",
         description: "Modern developer portfolio with interactive UI elements and dynamic content filtering. Features include tech stack carousel, dynamic project filtering, responsive design, and smooth animations. Built with a focus on accessibility and performance."
       },
+      blockParty: {
+        title: "Block Party",
+        description: "A fun interactive application where colorful squares arrange in a spiral pattern. Features include dynamic color generation, spiral animation, interactive elements, and offline persistence. Built with React and .NET, it showcases creative front-end animations and a RESTful API backend."
+      },
       ecommerce: {
         title: "E-Commerce Dashboard",
         description: "Admin dashboard for e-commerce platforms with analytics, inventory management, order processing, and customer management features."
@@ -184,6 +188,10 @@ export const translations = {
       portfolio: {
         title: "Portfoliowebbplats",
         description: "Modern utvecklarportfolio med interaktiva UI-element och dynamisk innehållsfiltrering. Funktioner inkluderar tech stack-karusell, dynamisk projektfiltrering, responsiv design och smidiga animationer. Byggd med fokus på tillgänglighet och prestanda."
+      },
+      blockParty: {
+        title: "Block Party",
+        description: "En rolig interaktiv applikation där färgglada block arrangeras i ett spiralmönster. Funktioner inkluderar dynamisk färggenerering, spiralanimation, interaktiva element och offline-persistens. Byggd med React och .NET, visar den kreativa frontend-animationer och ett RESTful API-backend."
       },
       ecommerce: {
         title: "E-handelskontrollpanel",
