@@ -107,10 +107,10 @@ const Projects = () => {
 
           {/* Tag filters - only show tags from visible projects */}
           {visibleTags.length > 1 && (
-            <div className="flex flex-wrap justify-center gap-2 mb-12">
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-8 sm:mb-12 px-1 sm:px-0">
               <button
                 onClick={() => setActiveFilter(null)}
-                className={`px-3 py-1.5 rounded-full text-xs md:text-sm transition-colors ${activeFilter === null
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs md:text-sm transition-colors ${activeFilter === null
                   ? "bg-primary text-primary-foreground"
                   : "bg-secondary/50 hover:bg-secondary/70"
                   }`}
@@ -122,7 +122,7 @@ const Projects = () => {
                 <button
                   key={tag}
                   onClick={() => setActiveFilter(tag)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                  className={`px-2.5 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 
                     ${activeFilter === tag
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-secondary text-foreground hover:bg-secondary/70'}`}
@@ -172,12 +172,12 @@ const Projects = () => {
                   <p className="text-foreground/70 text-sm">{t.projects[project.key]?.description}</p>
                 </div>
 
-                <div className="px-4 sm:px-6 pb-4 sm:pb-6 mt-auto">
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3">
+                <div className="px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 mt-auto">
+                  <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 mb-2 sm:mb-3">
                     {project.tags.map(tag => (
                       <span
                         key={tag}
-                        className="tech-pill text-xs cursor-pointer transition-colors hover:bg-primary/20 py-1 px-2 sm:px-2.5"
+                        className="tech-pill text-[10px] sm:text-xs cursor-pointer transition-colors hover:bg-primary/20 py-0.5 sm:py-1 px-1.5 sm:px-2 md:px-2.5"
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveFilter(tag);
@@ -188,7 +188,7 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-between items-center pt-3 border-t border-border">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 justify-between items-center pt-2 sm:pt-3 border-t border-border">
                     {project.githubLink && (
                       <a
                         href={project.githubLink}
@@ -196,8 +196,8 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center text-foreground/70 hover:text-primary transition-colors"
                       >
-                        <Github size={14} className="mr-1" />
-                        <span className="text-xs">{t.projects.sourceCode}</span>
+                        <Github size={12} className="mr-1" />
+                        <span className="text-[10px] sm:text-xs">{t.projects.sourceCode}</span>
                       </a>
                     )}
                     {project.liveLink && (
@@ -207,8 +207,8 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center text-foreground/70 hover:text-primary transition-colors"
                       >
-                        <span className="text-xs">{t.projects.liveProject}</span>
-                        <ExternalLink size={12} className="ml-1" />
+                        <span className="text-[10px] sm:text-xs">{t.projects.liveProject}</span>
+                        <ExternalLink size={10} className="ml-1" />
                       </a>
                     )}
                     {project.readmeLink && (
@@ -218,8 +218,8 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center text-foreground/70 hover:text-primary transition-colors"
                       >
-                        <BookOpen size={12} className="mr-1" />
-                        <span className="text-xs">{t.projects.readMore}</span>
+                        <BookOpen size={10} className="mr-1" />
+                        <span className="text-[10px] sm:text-xs">{t.projects.readMore}</span>
                       </a>
                     )}
                   </div>

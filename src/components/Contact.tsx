@@ -50,8 +50,8 @@ const Contact = () => {
     {
       icon: <PhoneCall className="w-5 h-5 text-primary" />,
       title: t.contact.phone,
-      value: "+46 76 347 13 37",
-      link: "tel:+46763471337",
+      value: "+46 76 007 98 50",
+      link: "tel:+46760079850",
     },
     {
       icon: <MapPin className="w-5 h-5 text-primary" />,
@@ -182,12 +182,12 @@ const Contact = () => {
     <section
       id="contact"
       ref={ref}
-      className="py-20 md:py-28 bg-secondary/30 relative overflow-hidden"
+      className="py-16 sm:py-20 md:py-28 bg-secondary/30 relative overflow-hidden"
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               <GradientText
                 text={t.contact.title}
                 from="from-rose-500"
@@ -195,40 +195,40 @@ const Contact = () => {
                 to="to-purple-600"
               />
             </h2>
-            <p className="text-foreground/70 max-w-2xl mx-auto">
+            <p className="text-foreground/70 max-w-2xl mx-auto text-sm sm:text-base">
               {t.contact.reachMe}
               <br />
               {t.contact.availability}
             </p>
           </div>
 
-          <div className={`grid md:grid-cols-5 gap-10 items-start transition-all duration-1000 ${inView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
-            <div className="md:col-span-2 space-y-8">
+          <div className={`grid md:grid-cols-5 gap-6 sm:gap-8 md:gap-10 items-start transition-all duration-1000 ${inView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+            <div className="md:col-span-2 space-y-6 sm:space-y-8">
               <div>
-                <p className="text-lg text-foreground/80 leading-relaxed mb-8">
+                <p className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-6 sm:mb-8">
                   {t.contact.description}
                 </p>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {contactInfo.map((item, index) => (
                     <div
                       key={index}
                       className="flex items-start"
                     >
-                      <div className="mr-4 mt-1 p-2 bg-white rounded-full shadow-sm">
+                      <div className="mr-3 sm:mr-4 mt-1 p-1.5 sm:p-2 bg-white rounded-full shadow-sm">
                         {item.icon}
                       </div>
                       <div>
-                        <p className="text-sm text-foreground/60 mb-1">{item.title}</p>
+                        <p className="text-xs sm:text-sm text-foreground/60 mb-0.5 sm:mb-1">{item.title}</p>
                         {item.link ? (
                           <a
                             href={item.link}
-                            className="text-lg font-medium hover:text-primary transition-colors duration-200"
+                            className="text-base sm:text-lg font-medium hover:text-primary transition-colors duration-200"
                           >
                             {item.value}
                           </a>
                         ) : (
-                          <p className="text-lg font-medium">{item.value}</p>
+                          <p className="text-base sm:text-lg font-medium">{item.value}</p>
                         )}
                       </div>
                     </div>
@@ -240,7 +240,7 @@ const Contact = () => {
             <div className="md:col-span-3">
               <form
                 onSubmit={handleSubmit}
-                className="bg-white p-8 rounded-xl shadow-sm border border-border"
+                className="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-sm border border-border"
               >
                 {remainingMessages < MAX_MESSAGES_PER_DAY && remainingMessages > 0 && (
                   <div className="mb-4 text-sm text-amber-600 text-center p-2 bg-amber-50 rounded-lg">
@@ -248,9 +248,9 @@ const Contact = () => {
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-foreground/70 mb-2">
+                    <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-foreground/70 mb-1 sm:mb-2">
                       {t.contact.form.name}
                     </label>
                     <input
@@ -260,13 +260,13 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none"
                       placeholder={t.contact.form.namePlaceholder}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-foreground/70 mb-2">
+                    <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-foreground/70 mb-1 sm:mb-2">
                       {t.contact.form.email}
                     </label>
                     <input
@@ -276,14 +276,14 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none"
                       placeholder={t.contact.form.emailPlaceholder}
                     />
                   </div>
                 </div>
 
-                <div className="mb-6">
-                  <label htmlFor="subject" className="block text-sm font-medium text-foreground/70 mb-2">
+                <div className="mb-4 sm:mb-6">
+                  <label htmlFor="subject" className="block text-xs sm:text-sm font-medium text-foreground/70 mb-1 sm:mb-2">
                     {t.contact.form.subject}
                   </label>
                   <input
@@ -293,13 +293,13 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none"
                     placeholder={t.contact.form.subjectPlaceholder}
                   />
                 </div>
 
-                <div className="mb-8">
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground/70 mb-2">
+                <div className="mb-6 sm:mb-8">
+                  <label htmlFor="message" className="block text-xs sm:text-sm font-medium text-foreground/70 mb-1 sm:mb-2">
                     {t.contact.form.message}
                   </label>
                   <textarea
@@ -308,8 +308,8 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={6}
-                    className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none resize-none"
+                    rows={4}
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none resize-none"
                     placeholder={t.contact.form.messagePlaceholder}
                   />
                 </div>
@@ -317,7 +317,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting || isSuccess || remainingMessages === 0}
-                  className={`w-full flex items-center justify-center px-8 py-3.5 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${submitStatus === 'success'
+                  className={`w-full flex items-center justify-center px-4 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${submitStatus === 'success'
                     ? 'bg-green-500 text-white hover:bg-green-600'
                     : submitStatus === 'error'
                       ? 'bg-red-500 text-white hover:bg-red-600'
@@ -328,28 +328,28 @@ const Contact = () => {
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 size={18} className="mr-2 animate-spin" />
-                      {t.contact.form.sending}
+                      <Loader2 size={16} className="mr-1.5 sm:mr-2 animate-spin" />
+                      <span className="text-sm sm:text-base">{t.contact.form.sending}</span>
                     </>
                   ) : submitStatus === 'success' ? (
                     <>
-                      <Check size={18} className="mr-2" />
-                      {t.contact.form.success}
+                      <Check size={16} className="mr-1.5 sm:mr-2" />
+                      <span className="text-sm sm:text-base">{t.contact.form.success}</span>
                     </>
                   ) : submitStatus === 'error' ? (
                     <>
-                      <AlertCircle size={18} className="mr-2" />
-                      {t.contact.form.error}
+                      <AlertCircle size={16} className="mr-1.5 sm:mr-2" />
+                      <span className="text-sm sm:text-base">{t.contact.form.error}</span>
                     </>
                   ) : submitStatus === 'rateLimit' ? (
                     <>
-                      <AlertCircle size={18} className="mr-2" />
-                      {t.contact.form.rateLimit}
+                      <AlertCircle size={16} className="mr-1.5 sm:mr-2" />
+                      <span className="text-sm sm:text-base">{t.contact.form.rateLimit}</span>
                     </>
                   ) : (
                     <>
-                      <Send size={18} className="mr-2" />
-                      {t.contact.form.send}
+                      <Send size={16} className="mr-1.5 sm:mr-2" />
+                      <span className="text-sm sm:text-base">{t.contact.form.send}</span>
                     </>
                   )}
                 </button>

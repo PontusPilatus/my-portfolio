@@ -1,18 +1,49 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const HeroBg = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number>();
+  const [isMobile, setIsMobile] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
 
   useEffect(() => {
+    // Safety check for server-side rendering
+    if (typeof window === 'undefined') return;
+
+    // Detect mobile devices
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Detect low-end devices based on screen size and devicePixelRatio
+    // Less aggressive detection to ensure more devices get animations
+    const isLowEndDevice = (
+      typeof window !== 'undefined' &&
+      (
+        window.innerWidth < 360 || // Only very small devices
+        (/iPhone|iPod/.test(navigator.userAgent) && !window.MSStream &&
+          (navigator.userAgent.includes('iPhone OS 9') ||
+            navigator.userAgent.includes('iPhone OS 10')))  // Only target very old iOS versions
+      )
+    );
+
+    // Only use fallback for extremely low-end devices
+    setUseFallback(isLowEndDevice);
+
+    if (useFallback) return; // Skip canvas setup if using fallback
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Grid properties
-    const gridSpacing = 40;
-    const dotSize = 1.5;
+    // Grid properties - use smaller grid for mobile
+    const gridSpacing = isMobile ? 60 : 40;
+    const dotSize = isMobile ? 1 : 1.5;
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
     const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
 
@@ -52,13 +83,17 @@ const HeroBg = () => {
       const rows = Math.ceil(canvas.height / gridSpacing) + 2;
       const cols = Math.ceil(canvas.width / gridSpacing) + 2;
 
+      // Fewer rows/columns for mobile to improve performance
+      const rowsToRender = isMobile ? Math.min(rows, 20) : rows;
+      const colsToRender = isMobile ? Math.min(cols, 20) : cols;
+
       // Offset for centered grid
       const offsetX = (canvas.width % gridSpacing) / 2;
       const offsetY = (canvas.height % gridSpacing) / 2;
 
       // Draw grid
-      for (let y = -1; y < rows; y++) {
-        for (let x = -1; x < cols; x++) {
+      for (let y = -1; y < rowsToRender; y++) {
+        for (let x = -1; x < colsToRender; x++) {
           // 3D wave effect
           const posX = x * gridSpacing + offsetX;
           const posY = y * gridSpacing + offsetY;
@@ -69,9 +104,10 @@ const HeroBg = () => {
             Math.pow((posY - canvas.height / 2) / canvas.height, 2)
           );
 
+          // Slower wave for mobile
           const waveAmplitude = 15;
-          const waveFrequency = 2;
-          const z = Math.sin(distanceToCenter * waveFrequency * Math.PI + now) * waveAmplitude;
+          const waveFrequency = isMobile ? 1.5 : 2;
+          const z = Math.sin(distanceToCenter * waveFrequency * Math.PI + now * (isMobile ? 0.5 : 1)) * waveAmplitude;
 
           // Calculate size based on z position (perspective)
           const perspective = 400;
@@ -90,8 +126,11 @@ const HeroBg = () => {
 
           ctx.fill();
 
+          // Skip drawing some lines on mobile for better performance
+          if (isMobile && (x % 2 !== 0 || y % 2 !== 0)) continue;
+
           // Connect dots with lines (only to right and bottom neighbors)
-          if (x < cols - 1) {
+          if (x < colsToRender - 1) {
             // Connect to right neighbor
             ctx.beginPath();
             ctx.moveTo(posX, posY);
@@ -102,7 +141,7 @@ const HeroBg = () => {
               Math.sqrt(
                 Math.pow((nextX - canvas.width / 2) / canvas.width, 2) +
                 Math.pow((nextY - canvas.height / 2) / canvas.height, 2)
-              ) * waveFrequency * Math.PI + now
+              ) * waveFrequency * Math.PI + now * (isMobile ? 0.5 : 1)
             ) * waveAmplitude;
 
             ctx.lineTo(nextX, nextY);
@@ -113,7 +152,7 @@ const HeroBg = () => {
             ctx.stroke();
           }
 
-          if (y < rows - 1) {
+          if (y < rowsToRender - 1) {
             // Connect to bottom neighbor
             ctx.beginPath();
             ctx.moveTo(posX, posY);
@@ -124,7 +163,7 @@ const HeroBg = () => {
               Math.sqrt(
                 Math.pow((nextX - canvas.width / 2) / canvas.width, 2) +
                 Math.pow((nextY - canvas.height / 2) / canvas.height, 2)
-              ) * waveFrequency * Math.PI + now
+              ) * waveFrequency * Math.PI + now * (isMobile ? 0.5 : 1)
             ) * waveAmplitude;
 
             ctx.lineTo(nextX, nextY);
@@ -137,36 +176,70 @@ const HeroBg = () => {
       }
     }
 
-    // Set canvas to full screen
+    // Set canvas to full screen with performance optimizations for mobile
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Use lower resolution for mobile
+      const pixelRatio = isMobile ? Math.min(window.devicePixelRatio, 1) : window.devicePixelRatio;
+      canvas.width = window.innerWidth * (isMobile ? 0.8 : 1);
+      canvas.height = window.innerHeight * (isMobile ? 0.8 : 1);
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+
+      if (ctx) {
+        ctx.scale(pixelRatio, pixelRatio);
+      }
+
       draw();
     };
 
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    // Animation loop
-    let animationFrame: number;
+    // Animation loop with error handling
     const animate = () => {
-      draw();
-      animationFrame = requestAnimationFrame(animate);
+      try {
+        draw();
+        animationRef.current = requestAnimationFrame(animate);
+      } catch (error) {
+        console.error("Animation error:", error);
+        // Fall back to static if animation fails
+        setUseFallback(true);
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+        }
+      }
     };
 
-    animationFrame = requestAnimationFrame(animate);
+    animationRef.current = requestAnimationFrame(animate);
 
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrame);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
     };
-  }, []);
+  }, [isMobile, useFallback]);
 
+  // For very low-end devices, use a simple gradient div instead of canvas
+  if (useFallback) {
+    return (
+      <div
+        className="absolute inset-0 w-full h-full -z-10 bg-gradient-to-b from-indigo-50/30 to-purple-50/30"
+        aria-hidden="true"
+      >
+        <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-purple-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-1/2 h-1/2 bg-indigo-200/20 rounded-full blur-3xl"></div>
+      </div>
+    );
+  }
+
+  // For better devices, use the canvas
   return (
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full -z-10 opacity-70"
+      aria-hidden="true"
     />
   );
 };
