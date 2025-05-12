@@ -72,6 +72,10 @@ export const translations = {
         title: "Block Party",
         description: "A fun interactive application where colorful squares arrange in a spiral pattern. Features include dynamic color generation, spiral animation, interactive elements, and offline persistence. Built with React and .NET, it showcases creative front-end animations and a RESTful API backend."
       },
+      nutrihub: {
+        title: "NutriHub",
+        description: "A modern web platform designed for dietitians and their patients.Features include comprehensive food and nutrition database search, AI-powered research summaries, BMI and calorie calculators, and newsletter signup with automated welcome emails."
+      },
       ecommerce: {
         title: "E-Commerce Dashboard",
         description: "Admin dashboard for e-commerce platforms with analytics, inventory management, order processing, and customer management features."
@@ -192,6 +196,10 @@ export const translations = {
       blockParty: {
         title: "Block Party",
         description: "En rolig interaktiv applikation där färgglada block arrangeras i ett spiralmönster. Funktioner inkluderar dynamisk färggenerering, spiralanimation, interaktiva element och offline-persistens. Byggd med React och .NET, visar den kreativa frontend-animationer och ett RESTful API-backend."
+      },
+      nutrihub: {
+        title: "Dietist App",
+        description: "En modern webbplattform utformad för dietister och deras patienter. Funktioner inkluderar omfattande sökning i livsmedels- och näringsdatabase, AI-drivna forskningssammanfattningar, BMI- och kalorikalkylatorer samt nyhetsbrevsprenumeration med automatiserade välkomstmail."
       },
       ecommerce: {
         title: "E-handelskontrollpanel",

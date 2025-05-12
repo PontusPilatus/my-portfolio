@@ -30,6 +30,15 @@ const Projects = () => {
   const projects: Project[] = [
     {
       id: 1,
+      key: "nutrihub",
+      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80",
+      tags: ["React", "TypeScript", "Node.js", "AI", "Tailwind CSS", "Nutrition API"],
+      githubLink: "https://github.com/PontusPilatus/dietist-app",
+      liveLink: "https://nutrihub.se",
+      featured: true,
+    },
+    {
+      id: 2,
       key: "filmFinder",
       image: "https://images.unsplash.com/photo-1585951237318-9ea5e175b891?auto=format&fit=crop&q=80",
       tags: ["React", "Node.js", "Express", "PostgreSQL", "AI", "Responsive Design"],
@@ -38,7 +47,7 @@ const Projects = () => {
       featured: true,
     },
     {
-      id: 2,
+      id: 3,
       key: "aiDetection",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80",
       tags: ["Python", "TensorFlow", "OpenCV", "Computer Vision", "AI"],
@@ -46,7 +55,7 @@ const Projects = () => {
       featured: true,
     },
     {
-      id: 3,
+      id: 4,
       key: "weatherDashboard",
       image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&q=80",
       tags: ["Next.js", "ASP.NET Core", "C#", "TypeScript", "Mapbox", "Chart.js"],
@@ -54,7 +63,7 @@ const Projects = () => {
       featured: true,
     },
     {
-      id: 4,
+      id: 5,
       key: "portfolio",
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "React", "Responsive Design", "Intersection Observer API"],
@@ -63,13 +72,13 @@ const Projects = () => {
       featured: true,
     },
     {
-      id: 5,
+      id: 6,
       key: "blockParty",
       image: "https://images.unsplash.com/photo-1633409361618-c73427e4e206?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       tags: ["React", "TypeScript", "Tailwind CSS", ".NET", "C#", "RESTful API", "Interactive"],
       githubLink: "https://github.com/PontusPilatus/whats-in-the-box",
       featured: true,
-    }
+    },
   ];
 
   // Get all unique tags from all projects
